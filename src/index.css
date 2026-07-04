@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+:root {
+  font-family: 'IBM Plex Sans Arabic', 'Cairo', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #2E2E2E;
+  background-color: #FAF8F5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #FAF8F5 0%, #fcf8ef 100%);
+  color: #2E2E2E;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Cairo', sans-serif;
+}
+
+img {
+  display: block;
+}
