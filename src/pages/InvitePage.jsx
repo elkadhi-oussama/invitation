@@ -175,14 +175,24 @@ export function InvitePage() {
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center"
+              onClick={() => {
+                const timelineSection = document.querySelector('section:has(> div:has(> div > p:contains("البرنامج")))');
+                if (timelineSection) {
+                  timelineSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  // Fallback: scroll to timeline id
+                  const timeline = document.getElementById('timeline');
+                  if (timeline) timeline.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center cursor-pointer"
             >
-              <p className="mb-2 text-sm font-semibold text-[#C9A227]">
+              <p className="mb-2 text-lg font-bold text-[#C9A227]">
                 اسحب لأسفل
               </p>
-              <p className="mb-3 text-xs text-[#C9A227]">لمزيد من تفاصيل</p>
+              <p className="mb-4 text-base font-semibold text-[#C9A227]">لمزيد من تفاصيل</p>
               <svg
-                className="h-6 w-6 text-[#C9A227]"
+                className="h-8 w-8 text-[#C9A227]"
                 fill="none"
                 strokeLinecap="round"
                 strokeLinejoin="round"
