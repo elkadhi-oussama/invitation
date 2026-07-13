@@ -81,7 +81,9 @@ export function InvitePage() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#FAF8F5] px-4 py-16 text-center sm:px-6 sm:py-24">
         <div className="rounded-[1.5rem] border border-[#C9A227]/20 bg-white/80 px-6 py-4 text-[#2E2E2E] shadow-[0_20px_90px_rgba(76,54,23,0.08)] backdrop-blur sm:rounded-[2rem] sm:px-8 sm:py-6">
-          <p className="text-base sm:text-lg">جارٍ تحميل الدعوة...</p>
+          <p className="text-base font-medium sm:text-lg">
+            جارٍ تحميل الدعوة...
+          </p>
         </div>
       </div>
     );
@@ -127,16 +129,16 @@ export function InvitePage() {
           >
             {!loading && guest && (
               <>
-                <p className="mb-4 text-sm tracking-[0.36em] text-[#C9A227] sm:mb-6 sm:text-lg">
+                <p className="mb-4 text-xs tracking-[0.4em] text-[#C9A227] font-semibold sm:mb-6 sm:text-base">
                   السيد(ة)
                 </p>
-                <h1 className="text-[clamp(2rem,6vw,5.2rem)] font-semibold leading-tight text-[#2E2E2E]">
+                <h1 className="text-[clamp(2.2rem,7vw,5.2rem)] font-bold leading-tight text-[#2E2E2E]">
                   {guest.name}
                 </h1>
                 <div className="my-4 flex justify-center text-[#C9A227] sm:my-6">
                   <span className="text-3xl sm:text-4xl">♡</span>
                 </div>
-                <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-[#2E2E2E] sm:mt-8 sm:text-lg sm:leading-8">
+                <p className="mx-auto mt-6 max-w-2xl text-sm leading-8 text-[#2E2E2E] font-medium sm:mt-8 sm:text-base sm:leading-9">
                   يسرنا دعوتكم لحضور حفل زفافنا المبارك ومشاركتنا أجمل لحظات
                   حياتنا
                 </p>
@@ -144,9 +146,9 @@ export function InvitePage() {
                   <button
                     type="button"
                     onClick={handleShare}
-                    className="flex items-center gap-2 rounded-full border border-[#C9A227]/30 bg-white/80 px-4 py-2 text-xs font-semibold text-[#C9A227] shadow-sm sm:px-6 sm:py-3 sm:text-sm"
+                    className="flex items-center gap-2 rounded-full border border-[#C9A227]/30 bg-white/80 px-4 py-2 text-sm font-bold text-[#C9A227] shadow-sm sm:px-6 sm:py-3 sm:text-base"
                   >
-                    <Share2 size={14} className="sm:size-4" />{" "}
+                    <Share2 size={16} className="sm:size-5" />{" "}
                     {copied ? "تم النسخ" : "مشاركة الدعوة"}
                   </button>
                   <button
@@ -159,9 +161,9 @@ export function InvitePage() {
                         events[0].maps,
                       )
                     }
-                    className="flex items-center gap-2 rounded-full border border-[#C9A227]/30 bg-white/80 px-4 py-2 text-xs font-semibold text-[#C9A227] shadow-sm sm:px-6 sm:py-3 sm:text-sm"
+                    className="flex items-center gap-2 rounded-full border border-[#C9A227]/30 bg-white/80 px-4 py-2 text-sm font-bold text-[#C9A227] shadow-sm sm:px-6 sm:py-3 sm:text-base"
                   >
-                    <CalendarPlus size={14} className="sm:size-4" /> إضافة إلى
+                    <CalendarPlus size={16} className="sm:size-5" /> إضافة إلى
                     التقويم
                   </button>
                 </div>
@@ -185,10 +187,10 @@ export function InvitePage() {
               }}
               className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center cursor-pointer sm:bottom-8"
             >
-              <p className="mb-2 text-base font-bold text-[#C9A227] sm:text-lg">
+              <p className="mb-2 text-lg font-bold text-[#C9A227] sm:text-xl">
                 اسحب لأسفل
               </p>
-              <p className="mb-3 text-xs font-semibold text-[#C9A227] sm:mb-4 sm:text-base">
+              <p className="mb-4 text-sm font-semibold text-[#C9A227] sm:mb-4 sm:text-base">
                 لمزيد من تفاصيل
               </p>
               <svg
@@ -217,7 +219,7 @@ export function InvitePage() {
               <div
                 className={`mx-auto max-w-3xl rounded-[1.5rem] border border-[#C9A227]/20 bg-white/80 p-6 shadow-[0_20px_90px_rgba(76,54,23,0.08)] backdrop-blur transition-opacity duration-700 sm:rounded-[2rem] sm:p-8 ${isReady ? "opacity-100" : "opacity-0"}`}
               >
-                <p className="text-base leading-7 text-[#2E2E2E] sm:text-lg sm:leading-8">
+                <p className="text-sm leading-8 text-[#2E2E2E] font-medium sm:text-base sm:leading-9">
                   نحن سعداء بوجودكم في هذه اللحظة العزيزة، ونتطلع إلى مشاركة هذه
                   الذكريات مع أحبائكم.
                 </p>
@@ -229,15 +231,15 @@ export function InvitePage() {
         {!loading && !guest && (
           <div className="flex min-h-screen items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-24">
             <div className="max-w-2xl rounded-[1.5rem] border border-[#C9A227]/20 bg-white/80 p-6 shadow-[0_20px_90px_rgba(76,54,23,0.08)] backdrop-blur sm:rounded-[2rem] sm:p-10">
-              <p className="mb-4 text-lg font-semibold text-[#2E2E2E] sm:text-2xl">
+              <p className="mb-4 text-base font-bold text-[#2E2E2E] sm:text-xl">
                 عذراً، هذه الدعوة غير موجودة.
               </p>
-              <p className="mb-6 text-base text-[#8D6E63] sm:text-lg">
+              <p className="mb-6 text-sm font-medium text-[#8D6E63] sm:text-base">
                 الرجاء التحقق من الرابط أو التواصل معنا مباشرة.
               </p>
               <Link
                 to="/"
-                className="rounded-full border border-[#C9A227]/30 bg-[#C9A227] px-4 py-2 text-xs font-semibold text-white sm:px-6 sm:py-3 sm:text-sm"
+                className="rounded-full border border-[#C9A227]/30 bg-[#C9A227] px-4 py-2 text-xs font-bold text-white sm:px-6 sm:py-3 sm:text-sm"
               >
                 العودة إلى الصفحة الرئيسية
               </Link>
