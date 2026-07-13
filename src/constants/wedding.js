@@ -24,14 +24,14 @@ export const events = [
     maps: "https://maps.app.goo.gl/cFzy4NqcFETJwVd18",
   },
   {
-    title: "مأدبة عشاء العريس",
+    title: "مأدبة عشاء و حنة العريس",
     date: "28",
     time: "مساءً",
     venue: "Salle des Fêtes Ali Toumi",
     maps: "https://maps.app.goo.gl/xNRYd7NPwgTrNLmYA",
   },
   {
-    title: "مأدبة عشاء العروس",
+    title: "مأدبة عشاء و حنة العروسة",
     date: "28",
     time: "مساءً",
     venue: "منزل العروس",
