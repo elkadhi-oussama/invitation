@@ -65,7 +65,7 @@ export function InvitePage() {
     if (navigator.share) {
       await navigator.share({
         title: "دعوة الزفاف",
-        text: "دعوة خاصة من عُسامة وسُهى",
+        text: "دعوة خاصة من أسامة وسُهى",
         url: link,
       });
       return;
