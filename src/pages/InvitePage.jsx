@@ -1,9 +1,29 @@
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { couple } from "../constants/wedding";
+import { couple, events, introText, weddingDate } from "../constants/wedding";
 import { useLenis } from "../hooks/useLenis";
 import { findGuestByCode, loadGuests } from "../utils/guestData";
+import {
+  CalendarDays,
+  MapPin,
+  Sparkles,
+  Share2,
+  CalendarPlus,
+} from "lucide-react";
+import { BackgroundMusicToggle } from "../components/BackgroundMusicToggle";
+import { BackToTop } from "../components/BackToTop";
+import { ScrollProgress } from "../components/ScrollProgress";
+import { HeroSection } from "../sections/HeroSection";
+import { IntroSection } from "../sections/IntroSection";
+import { TimelineSection } from "../sections/TimelineSection";
+import { GallerySection } from "../sections/GallerySection";
+import { FloatingFlowers } from "../components/FloatingFlowers";
+import {
+  buildInvitationLink,
+  copyToClipboard,
+  downloadCalendarFile,
+} from "../utils/invitation";
 
 export function InvitePage() {
   const { code } = useParams();
@@ -11,6 +31,8 @@ export function InvitePage() {
 
   const [guest, setGuest] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [copied, setCopied] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -30,6 +52,30 @@ export function InvitePage() {
       isMounted = false;
     };
   }, [code]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setIsReady(true);
+    }, 100);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  const handleShare = async () => {
+    const link = buildInvitationLink(code, window.location.origin);
+    if (navigator.share) {
+      await navigator.share({
+        title: "دعوة الزفاف",
+        text: "دعوة خاصة من عُسامة وسُهى",
+        url: link,
+      });
+      return;
+    }
+    const copied = await copyToClipboard(link);
+    if (copied) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    }
+  };
 
   if (loading) {
     return (
@@ -63,29 +109,132 @@ export function InvitePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] px-6 py-24 text-right">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        className="mx-auto flex max-w-4xl flex-col items-center rounded-[2.2rem] border border-[#C9A227]/20 bg-white/90 p-8 shadow-[0_30px_100px_rgba(76,54,23,0.12)] backdrop-blur sm:p-12"
-      >
-        <p className="mb-6 text-lg text-[#8D6E63]">السيد(ة)</p>
-        <h1 className="text-center text-3xl font-semibold text-[#2E2E2E] sm:text-4xl">
-          {guest.name}
-        </h1>
-        <p className="mt-8 max-w-2xl text-center text-xl leading-9 text-[#2E2E2E] sm:text-2xl">
-          يسرنا دعوتكم لحضور حفل زفافنا المبارك ومشاركتنا أجمل لحظاتنا.
-        </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <a
-            href="/#timeline"
-            className="rounded-full border border-[#C9A227]/30 bg-[#C9A227] px-6 py-3 text-sm font-semibold text-white"
+    <div className="min-h-screen bg-[#FAF8F5] text-[#2E2E2E]">
+      <ScrollProgress />
+      <BackgroundMusicToggle />
+      <BackToTop />
+
+      <main className="relative overflow-x-hidden">
+        {/* Welcome Section with Guest Name */}
+        <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-20 text-center">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(201,162,39,0.14),_transparent_65%)]" />
+          <FloatingFlowers />
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="relative z-10 w-full max-w-5xl"
           >
-            مزيد من التفاصيل
-          </a>
-        </div>
-      </motion.div>
+            {!loading && guest && (
+              <>
+                <p className="mb-6 text-lg tracking-[0.36em] text-[#C9A227]">
+                  السيد(ة)
+                </p>
+                <h1 className="text-[clamp(2.8rem,7vw,5.2rem)] font-semibold leading-tight text-[#2E2E2E]">
+                  {guest.name}
+                </h1>
+                <div className="my-6 flex justify-center text-[#C9A227]">
+                  <span className="text-4xl">♡</span>
+                </div>
+                <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-[#2E2E2E] sm:text-xl">
+                  يسرنا دعوتكم لحضور حفل زفافنا المبارك ومشاركتنا أجمل لحظات
+                  حياتنا
+                </p>
+                <div className="mt-10 flex flex-wrap justify-center gap-3">
+                  <button
+                    type="button"
+                    onClick={handleShare}
+                    className="flex items-center gap-2 rounded-full border border-[#C9A227]/30 bg-white/80 px-6 py-3 text-sm font-semibold text-[#C9A227] shadow-sm"
+                  >
+                    <Share2 size={16} /> {copied ? "تم النسخ" : "مشاركة الدعوة"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      downloadCalendarFile(
+                        "حفل زفاف أسامة وسُهى",
+                        weddingDate,
+                        events[0].venue,
+                        events[0].maps,
+                      )
+                    }
+                    className="flex items-center gap-2 rounded-full border border-[#C9A227]/30 bg-white/80 px-6 py-3 text-sm font-semibold text-[#C9A227] shadow-sm"
+                  >
+                    <CalendarPlus size={16} /> إضافة إلى التقويم
+                  </button>
+                </div>
+              </>
+            )}
+            {loading && (
+              <p className="text-lg text-[#C9A227]">جارٍ تحميل الدعوة...</p>
+            )}
+          </motion.div>
+
+          {/* Scroll Down Indicator */}
+          {guest && (
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center"
+            >
+              <p className="mb-2 text-sm font-semibold text-[#C9A227]">
+                اسحب لأسفل
+              </p>
+              <p className="mb-3 text-xs text-[#C9A227]">لمزيد من تفاصيل</p>
+              <svg
+                className="h-6 w-6 text-[#C9A227]"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+              </svg>
+            </motion.div>
+          )}
+        </section>
+
+        {guest && (
+          <>
+            <IntroSection />
+            <HeroSection />
+            <TimelineSection />
+            <GallerySection />
+
+            <section className="px-6 pb-24 text-center">
+              <div
+                className={`mx-auto max-w-3xl rounded-[2rem] border border-[#C9A227]/20 bg-white/80 p-8 shadow-[0_20px_90px_rgba(76,54,23,0.08)] backdrop-blur transition-opacity duration-700 ${isReady ? "opacity-100" : "opacity-0"}`}
+              >
+                <p className="text-lg leading-8 text-[#2E2E2E]">
+                  نحن سعداء بوجودكم في هذه اللحظة العزيزة، ونتطلع إلى مشاركة هذه
+                  الذكريات مع أحبائكم.
+                </p>
+              </div>
+            </section>
+          </>
+        )}
+
+        {!loading && !guest && (
+          <div className="flex min-h-screen items-center justify-center px-6 py-24 text-center">
+            <div className="max-w-2xl rounded-[2rem] border border-[#C9A227]/20 bg-white/80 p-10 shadow-[0_20px_90px_rgba(76,54,23,0.08)] backdrop-blur">
+              <p className="mb-4 text-2xl font-semibold text-[#2E2E2E]">
+                عذراً، هذه الدعوة غير موجودة.
+              </p>
+              <p className="mb-6 text-lg text-[#8D6E63]">
+                الرجاء التحقق من الرابط أو التواصل معنا مباشرة.
+              </p>
+              <Link
+                to="/"
+                className="rounded-full border border-[#C9A227]/30 bg-[#C9A227] px-6 py-3 text-sm font-semibold text-white"
+              >
+                العودة إلى الصفحة الرئيسية
+              </Link>
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 }

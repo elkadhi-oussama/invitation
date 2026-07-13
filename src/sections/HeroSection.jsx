@@ -13,11 +13,11 @@ export function HeroSection() {
         className="max-w-4xl"
       >
         <div className="mb-8 text-[clamp(2rem,6vw,3.6rem)] font-semibold leading-tight text-[#2E2E2E]">
-          <div className="mb-3 text-[#C9A227]">{couple.groom}</div>
+          <div className="mb-3 text-black">{couple.groom}</div>
           <div className="my-4 flex justify-center text-[#C9A227]">
             <Heart size={30} />
           </div>
-          <div className="text-[#2E2E2E]">{couple.bride}</div>
+          <div className="text-[#C9A227]">{couple.bride}</div>
         </div>
         <p className="mb-10 text-xl leading-9 text-[#2E2E2E] sm:text-2xl">
           {heroMessage}
