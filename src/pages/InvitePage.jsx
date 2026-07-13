@@ -79,9 +79,9 @@ export function InvitePage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#FAF8F5] px-6 py-24 text-center">
-        <div className="rounded-[2rem] border border-[#C9A227]/20 bg-white/80 px-8 py-6 text-[#2E2E2E] shadow-[0_20px_90px_rgba(76,54,23,0.08)] backdrop-blur">
-          <p className="text-lg">جارٍ تحميل الدعوة...</p>
+      <div className="flex min-h-screen items-center justify-center bg-[#FAF8F5] px-4 py-16 text-center sm:px-6 sm:py-24">
+        <div className="rounded-[1.5rem] border border-[#C9A227]/20 bg-white/80 px-6 py-4 text-[#2E2E2E] shadow-[0_20px_90px_rgba(76,54,23,0.08)] backdrop-blur sm:rounded-[2rem] sm:px-8 sm:py-6">
+          <p className="text-base sm:text-lg">جارٍ تحميل الدعوة...</p>
         </div>
       </div>
     );
@@ -116,7 +116,7 @@ export function InvitePage() {
 
       <main className="relative overflow-x-hidden">
         {/* Welcome Section with Guest Name */}
-        <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-20 text-center">
+        <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-16 text-center sm:px-6 sm:py-20">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(201,162,39,0.14),_transparent_65%)]" />
           <FloatingFlowers />
           <motion.div
@@ -127,26 +127,27 @@ export function InvitePage() {
           >
             {!loading && guest && (
               <>
-                <p className="mb-6 text-lg tracking-[0.36em] text-[#C9A227]">
+                <p className="mb-4 text-sm tracking-[0.36em] text-[#C9A227] sm:mb-6 sm:text-lg">
                   السيد(ة)
                 </p>
-                <h1 className="text-[clamp(2.8rem,7vw,5.2rem)] font-semibold leading-tight text-[#2E2E2E]">
+                <h1 className="text-[clamp(2rem,6vw,5.2rem)] font-semibold leading-tight text-[#2E2E2E]">
                   {guest.name}
                 </h1>
-                <div className="my-6 flex justify-center text-[#C9A227]">
-                  <span className="text-4xl">♡</span>
+                <div className="my-4 flex justify-center text-[#C9A227] sm:my-6">
+                  <span className="text-3xl sm:text-4xl">♡</span>
                 </div>
-                <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-[#2E2E2E] sm:text-xl">
+                <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-[#2E2E2E] sm:mt-8 sm:text-lg sm:leading-8">
                   يسرنا دعوتكم لحضور حفل زفافنا المبارك ومشاركتنا أجمل لحظات
                   حياتنا
                 </p>
-                <div className="mt-10 flex flex-wrap justify-center gap-3">
+                <div className="mt-6 flex flex-wrap justify-center gap-2 sm:mt-10 sm:gap-3">
                   <button
                     type="button"
                     onClick={handleShare}
-                    className="flex items-center gap-2 rounded-full border border-[#C9A227]/30 bg-white/80 px-6 py-3 text-sm font-semibold text-[#C9A227] shadow-sm"
+                    className="flex items-center gap-2 rounded-full border border-[#C9A227]/30 bg-white/80 px-4 py-2 text-xs font-semibold text-[#C9A227] shadow-sm sm:px-6 sm:py-3 sm:text-sm"
                   >
-                    <Share2 size={16} /> {copied ? "تم النسخ" : "مشاركة الدعوة"}
+                    <Share2 size={14} className="sm:size-4" />{" "}
+                    {copied ? "تم النسخ" : "مشاركة الدعوة"}
                   </button>
                   <button
                     type="button"
@@ -158,9 +159,10 @@ export function InvitePage() {
                         events[0].maps,
                       )
                     }
-                    className="flex items-center gap-2 rounded-full border border-[#C9A227]/30 bg-white/80 px-6 py-3 text-sm font-semibold text-[#C9A227] shadow-sm"
+                    className="flex items-center gap-2 rounded-full border border-[#C9A227]/30 bg-white/80 px-4 py-2 text-xs font-semibold text-[#C9A227] shadow-sm sm:px-6 sm:py-3 sm:text-sm"
                   >
-                    <CalendarPlus size={16} /> إضافة إلى التقويم
+                    <CalendarPlus size={14} className="sm:size-4" /> إضافة إلى
+                    التقويم
                   </button>
                 </div>
               </>
@@ -176,23 +178,21 @@ export function InvitePage() {
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
               onClick={() => {
-                const timelineSection = document.querySelector('section:has(> div:has(> div > p:contains("البرنامج")))');
-                if (timelineSection) {
-                  timelineSection.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                  // Fallback: scroll to timeline id
-                  const timeline = document.getElementById('timeline');
-                  if (timeline) timeline.scrollIntoView({ behavior: 'smooth' });
+                const timeline = document.getElementById("timeline");
+                if (timeline) {
+                  timeline.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center cursor-pointer"
+              className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center cursor-pointer sm:bottom-8"
             >
-              <p className="mb-2 text-lg font-bold text-[#C9A227]">
+              <p className="mb-2 text-base font-bold text-[#C9A227] sm:text-lg">
                 اسحب لأسفل
               </p>
-              <p className="mb-4 text-base font-semibold text-[#C9A227]">لمزيد من تفاصيل</p>
+              <p className="mb-3 text-xs font-semibold text-[#C9A227] sm:mb-4 sm:text-base">
+                لمزيد من تفاصيل
+              </p>
               <svg
-                className="h-8 w-8 text-[#C9A227]"
+                className="h-6 w-6 text-[#C9A227] sm:h-8 sm:w-8"
                 fill="none"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -213,11 +213,11 @@ export function InvitePage() {
             <TimelineSection />
             <GallerySection />
 
-            <section className="px-6 pb-24 text-center">
+            <section className="px-4 pb-16 text-center sm:px-6 sm:pb-24">
               <div
-                className={`mx-auto max-w-3xl rounded-[2rem] border border-[#C9A227]/20 bg-white/80 p-8 shadow-[0_20px_90px_rgba(76,54,23,0.08)] backdrop-blur transition-opacity duration-700 ${isReady ? "opacity-100" : "opacity-0"}`}
+                className={`mx-auto max-w-3xl rounded-[1.5rem] border border-[#C9A227]/20 bg-white/80 p-6 shadow-[0_20px_90px_rgba(76,54,23,0.08)] backdrop-blur transition-opacity duration-700 sm:rounded-[2rem] sm:p-8 ${isReady ? "opacity-100" : "opacity-0"}`}
               >
-                <p className="text-lg leading-8 text-[#2E2E2E]">
+                <p className="text-base leading-7 text-[#2E2E2E] sm:text-lg sm:leading-8">
                   نحن سعداء بوجودكم في هذه اللحظة العزيزة، ونتطلع إلى مشاركة هذه
                   الذكريات مع أحبائكم.
                 </p>
@@ -227,17 +227,17 @@ export function InvitePage() {
         )}
 
         {!loading && !guest && (
-          <div className="flex min-h-screen items-center justify-center px-6 py-24 text-center">
-            <div className="max-w-2xl rounded-[2rem] border border-[#C9A227]/20 bg-white/80 p-10 shadow-[0_20px_90px_rgba(76,54,23,0.08)] backdrop-blur">
-              <p className="mb-4 text-2xl font-semibold text-[#2E2E2E]">
+          <div className="flex min-h-screen items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-24">
+            <div className="max-w-2xl rounded-[1.5rem] border border-[#C9A227]/20 bg-white/80 p-6 shadow-[0_20px_90px_rgba(76,54,23,0.08)] backdrop-blur sm:rounded-[2rem] sm:p-10">
+              <p className="mb-4 text-lg font-semibold text-[#2E2E2E] sm:text-2xl">
                 عذراً، هذه الدعوة غير موجودة.
               </p>
-              <p className="mb-6 text-lg text-[#8D6E63]">
+              <p className="mb-6 text-base text-[#8D6E63] sm:text-lg">
                 الرجاء التحقق من الرابط أو التواصل معنا مباشرة.
               </p>
               <Link
                 to="/"
-                className="rounded-full border border-[#C9A227]/30 bg-[#C9A227] px-6 py-3 text-sm font-semibold text-white"
+                className="rounded-full border border-[#C9A227]/30 bg-[#C9A227] px-4 py-2 text-xs font-semibold text-white sm:px-6 sm:py-3 sm:text-sm"
               >
                 العودة إلى الصفحة الرئيسية
               </Link>
